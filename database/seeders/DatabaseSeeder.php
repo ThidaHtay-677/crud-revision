@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-//        Blog::factory()->create([
-//            "title" => "hello hello",
-//            "description" => "hello lorem hello"
-//        ]);
-//        Blog::factory(55)->create();
+    //    Blog::factory()->create([
+    //        "title" => "hello hello",
+    //        "description" => "hello lorem hello"
+    //    ]);
+    //    Blog::factory(50)->create();//need BlogFactory
     }
 }

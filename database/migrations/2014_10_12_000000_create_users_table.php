@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->double("salary");
+            $table->double("salary");//for global money
             $table->string("nation");
-            $table->enum("gender",['male','female']);
+            $table->enum("gender",['male','female']);//string nae write tar low-performance phyit say tal
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -19,7 +19,7 @@ class UserController extends Controller
         $users = User::where("nation","mm")->paginate(5)->through(function ($user){
             $user->tax = $this->calcTax($user->salary);
             $user->net_salary = $this->netSalary($user->salary);
-            return $user;
+            return $user;//besc through()
         });
 
 //        dd($users);

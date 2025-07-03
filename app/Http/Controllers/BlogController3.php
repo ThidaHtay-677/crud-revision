@@ -15,20 +15,31 @@ class BlogController3 extends Controller
      */
     public function index()
     {
-    $blogs = Blog::when(request('keyword'),function ($q){
-        $keyword = request("keyword");
-        $q->where("title","like","%$keyword%")
-            ->orWhere("description","like","%$keyword%");
-    })->paginate(10)->withQueryString();
-//        $blogs=Blog::where("id",1)->paginate(10)->through(function ($blog){
-//            $blog->title = strtoupper($blog->title);
-//            $blog->user_id = rand(1,45);
-//            return $blog;
-//        });
-//        dd($blogs->isEmpty());
-//        return $blogs;
-//        dd($blogs);
-        return view('blog.index',compact('blogs'));
+        // $blogs = Blog::where("id", "<", 5)->get()->random();
+        // dd($blogs);
+
+        $blogs = Blog::when(request('keyword'),function ($q){
+            $keyword = request("keyword");
+            $q->where("title","like","%$keyword%")
+                ->orWhere("description","like","%$keyword%");
+        })->paginate(10)->withQueryString();
+
+        // $blogs = Blog::where("id", "<", 10)->get()->map(function ($blog) {
+        //     $blog->title = strtoupper($blog->title);
+        //     $blog->user_id=rand(1,45);//add new data like user_id
+        //     return $blog;
+        // });
+
+
+            //    $blogs=Blog::where("id",1)->paginate(10)->through(function ($blog){
+            //        $blog->title = strtoupper($blog->title);
+            //        $blog->user_id = rand(1,45);
+            //        return $blog;
+            //    });
+        //        dd($blogs->isEmpty());
+         //      return $blogs;
+        //        dd($blogs);
+        return view('blog.index', compact('blogs'));
     }
 
     /**
@@ -39,7 +50,6 @@ class BlogController3 extends Controller
     public function create()
     {
         return view('blog.create');
-
     }
 
     /**
@@ -52,19 +62,19 @@ class BlogController3 extends Controller
     {
 
 
-//        $blog = new Blog();
-//        $blog->title = $request->title;
-//        $blog->description = $request->description;
-//        $blog->save();
+        //        $blog = new Blog();
+        //        $blog->title = $request->title;
+        //        $blog->description = $request->description;
+        //        $blog->save();
 
         Blog::create([
             "title" => $request->title,
             "description" => $request->description
         ]);
 
-//        Blog::create($request->all());
+        //        Blog::create($request->all());
 
-        return redirect()->route('blog.index')->with("status","New Post is created");
+        return redirect()->route('blog.index')->with("status", "New Post is created");
     }
 
     /**
@@ -86,7 +96,7 @@ class BlogController3 extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('blog.edit',compact('blog'));
+        return view('blog.edit', compact('blog'));
     }
 
     /**
@@ -104,7 +114,7 @@ class BlogController3 extends Controller
         $blog->description = $request->description;
         $blog->update();
 
-        return redirect()->route("blog.index")->with("status","Post is Updated");
+        return redirect()->route("blog.index")->with("status", "Post is Updated");
     }
 
     /**
@@ -116,6 +126,6 @@ class BlogController3 extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        return redirect()->route('blog.index')->with("status","New Post is deleted");
+        return redirect()->route('blog.index')->with("status", "New Post is deleted");
     }
 }
